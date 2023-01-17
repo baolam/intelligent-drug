@@ -45,7 +45,7 @@ class InformationController {
     stack.update(stack_id, phone, drink);
     
     /// Gửi dữ liệu đến raspberry pi
-    events.emit("update_data", { stack_id, phone });
+    events.emit("update_stack", { stack_id, phone });
 
     /// Gửi phản hồi đến người dùng
     res.status(200).send("OK");

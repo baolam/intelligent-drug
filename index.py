@@ -22,23 +22,33 @@ def countdown(t):
     time.sleep(1)
     t -= 1
 
+def send_to_arduino (command):
+  arduino.write(bytes(command, "utf-8"))
+
 recognize = False
+
 def stack_data_handler(my_stack_data):
   global recognize
-  print(my_stack_data)
+  # print("Từ đây nè", my_stack_data)
+  stack = my_stack_data["stack_id"]
+  phone = my_stack_data["phone"]
+  # print(stack, phone)
   recognize = True
+  send_to_arduino ('B1#')
   countdown(120)
-  if recognize == False:
-    # Sự kiện nhận dạng thành công
-    pass
-  else:
+  send_to_arduino ('B0#')
+  if recognize:
     # Kết quả sau 2 phút không tồn tại nhận dạng
+    send_to_arduino ('M' + str(stack) + '#')
     pass
   recognize = False
 
 
 def update_stack(data):
   global database
+  stack_id = data["stack_id"]
+  phone = data["phone"]
+  send_to_arduino('N' + str(stack_id) + ';' + str(phone) + '#')
   database = update_represent()
 
 def maintain_socket():
@@ -57,9 +67,12 @@ while True:
   if recognize:
     __, frame = video.read()
     try:
-      stack = run(frame, database)
-      # Kết quả nhận dạng là tồn tại
+      # stack = run(frame, database)
+      # recognize = False
+      # # Kết quả nhận dạng là tồn tại
+      # send_to_arduino ('T' + 'stack' +  '#')
       # stack là ngăn được nhận dạng
+      pass
     except:
       pass
 # except KeyboardInterrupt:

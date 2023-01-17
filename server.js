@@ -50,7 +50,7 @@ schedule_rule.minute = 0;
 event.addListener("stack_data", (data) => {
   if (data != undefined)
   {
-    console.log("Kết quả phản hồi ", data);
+    // console.log("Kết quả phản hồi ", data);
     io.emit("stack_data", data);
   }
 });
