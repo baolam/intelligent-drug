@@ -40,6 +40,7 @@ def stack_data_handler(my_stack_data):
   if recognize:
     # Kết quả sau 2 phút không tồn tại nhận dạng
     send_to_arduino ('M' + str(stack) + '#')
+    send_to_arduino( 'C' + str(stack) + '#')
     pass
   recognize = False
 
