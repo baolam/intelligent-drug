@@ -31,7 +31,7 @@ def stack_data_handler(my_stack_data):
   global recognize
   # print("Từ đây nè", my_stack_data)
   stack = my_stack_data["stack_id"]
-  phone = my_stack_data["phone"]
+  # phone = my_stack_data["phone"]
   # print(stack, phone)
   recognize = True
   send_to_arduino ('B1#')
@@ -67,10 +67,10 @@ while True:
   if recognize:
     __, frame = video.read()
     try:
-      # stack = run(frame, database)
-      # recognize = False
+      stack = run(frame, database)
+      recognize = False
       # # Kết quả nhận dạng là tồn tại
-      # send_to_arduino ('T' + 'stack' +  '#')
+      send_to_arduino ('T' + 'stack' +  '#')
       # stack là ngăn được nhận dạng
       pass
     except:
