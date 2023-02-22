@@ -30,7 +30,6 @@ app.use(express.static(path.join(__dirname, "server", "build")));
 app.use(morgan("dev"));
 
 const route = require("./server/routes/route");
-route(app);
 
 // Socket.io
 // Nhận dữ liệu và truyền dữ liệu
@@ -48,6 +47,7 @@ schedule_rule.minute = 0;
 
 /// Lắng nghe dữ liệu phản hồi
 event.addListener("stack_data", (data) => {
+  console.log("Du lieu hien thi", data);
   if (data != undefined)
   {
     // console.log("Kết quả phản hồi ", data);
@@ -66,6 +66,8 @@ nschedule.scheduleJob("Stack hour", schedule_rule, (fire) => {
   console.log(`Đang thực thi tại lúc ${hour} giờ`);
   stack.search(hour);
 });
+
+route(app);
 
 server.listen(PORT, (() => {
   console.log(`Server is running at ${SERVER_ADDRESS}`);
